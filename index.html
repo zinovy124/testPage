@@ -100,13 +100,12 @@
             if (e.key == "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 addAnswerToQuestArea(userInput.value);
-                addAnswerToAnsArea(userInput.value);
                 userInput.value = "";
             }
         });
         
         submitButton.addEventListener("click", (e) => {
-            addAnswerToQuestArea(userInput.value);
+            e.preventDefault();
             addAnswerToAnsArea(userInput.value);
             userInput.value = "";
         });
