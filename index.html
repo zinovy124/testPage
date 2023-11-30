@@ -24,13 +24,16 @@
         textarea:focus {
             outline: none;
         }
+        .text-place {
+            height: 60vh;
+        }
     </style>
 </head>
 <body class="bg-sky-950 flex justify-center">
     <div id="wrap" class="p-5 text-slate-50">
         <h1 class="text-4xl p-10">Let's try GPT 3.5 turbo by using API</h1>
         <div class="conversation-wrap">
-            <div class="text-place">
+            <div class="text-place overflow-scroll">
 
             </div>
             <form action="#" method="get" class="fixed bottom-10 left-56">
@@ -45,72 +48,6 @@
             </form>
         </div>
     </div>
-    <script type="module" src="SendReq.js"></script>
-    <script>
-        const form = document.querySelector("form");
-        const userInput = document.querySelector("#prompt-textarea");
-        const textPlace = document.querySelector(".text-place");
-        const submitButton = document.querySelector("button[type=submit]");
-        let identifierNumber = 1;
-
-        // Functions locating Texts
-
-        const getWrapper = (convObj) => {
-            const wrapper = document.createElement("div");
-            wrapper.className = "element p-2";
-            wrapper.id = `conversation_${identifierNumber}`;
-            wrapper.appendChild(convObj);
-            if (convObj.identity == "GPT") {
-                identifierNumber++;
-            }
-            textPlace.appendChild(wrapper);
-        };
-
-        const addAnswerToQuestArea = (text) => {
-            const userQuestion = document.createElement("div");
-            userQuestion.className = "user-quest";
-            const nameTagYou = document.createElement("span");
-            nameTagYou.className = "text-2xl my-3";
-            nameTagYou.innerText = "You";
-            const userText = document.createElement("p");
-            userText.innerText = text;
-            userQuestion.appendChild(nameTagYou);
-            userQuestion.appendChild(userText);
-            userQuestion.identity = "user";
-            getWrapper(userQuestion);
-        };
-
-        const addAnswerToAnsArea = (quest) => {
-            const gptAnswer = document.createElement("div");
-            gptAnswer.className = "gpt-ans my-3";
-            const nameTagGpt = document.createElement("span");
-            nameTagGpt.className = "text-2xl my-3";
-            nameTagGpt.innerText = "ChatGPT";
-            const gptText = document.createElement("p");
-            gptText.innerText = call(quest);
-            gptAnswer.appendChild(nameTagGpt);
-            gptAnswer.appendChild(gptText);
-            gptAnswer.identity = "GPT";
-            getWrapper(gptAnswer);
-        };
-
-        // Event Listeners
-
-        form.addEventListener("keydown", (e) => {
-            if (e.key == "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                addAnswerToQuestArea(userInput.value);
-                userInput.value = "";
-            }
-        });
-        
-        submitButton.addEventListener("click", (e) => {
-            e.preventDefault();
-            addAnswerToAnsArea(userInput.value);
-            userInput.value = "";
-        });
-
-
-    </script>
+    <script type="module" src="./index.js"></script>
 </body>
 </html>
